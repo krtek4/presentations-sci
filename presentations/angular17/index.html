@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Angular 17</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../../dist/reveal.css" />
+    <link rel="stylesheet" href="../../dist/theme/dracula.css" id="theme" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/monokai.css" />
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # Signals
+
+                        https://angular.dev/guide/signals
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Signals
+
+                        ```typescript [1|2|3|4|1-4]
+                        const count = signal(0);
+                        console.log(`Count: ${count()}`);
+                        count.set(3);
+                        count.update(v => v + 1);
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Computed signals
+
+                        ```typescript [1|1-2|1-3]
+                        const count = signal(1);
+                        const doubleCount = computed(() => count() * 2);
+                        console.log(`Count: ${doubleCount()}`);
+                        ```
+
+                        Les signaux calculés sont "*paresseux*" (lazy) et *mémoïsé*.
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Effects
+
+                        ```typescript
+                        import {input, effect} from '@angular/core';
+                        class MyComp {
+                            name = input.required<string>();
+                            constructor() {
+                                effect(() => console.log(this.name()));
+                            }
+                        }
+                        ```
+
+                        En général définit dans le constructeur.
+                        
+                        Appelé au moins une fois.
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Input Signals
+
+                        ```typescript [1|2|3]
+                        name = input<string>();          // InputSignal<string|undefined>
+                        name = input('Joe');             // InputSignal<string>
+                        name = input.required<string>(); // InputSignal<string>
+                        ```
+
+                        * meilleur typage
+                        * input requis
+                        * plus besoin de `| async`
+                        * `effect` plus simple que `ngOnChanges`
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Input Signals: transform
+
+                        ```typescript
+                        disabled = input(false, {
+                            transform: (value: boolean|string) => 
+                                typeof value === 'string' ? 
+                                    value === '' : 
+                                    value
+                        });
+                        ```
+
+                        ```html
+                        <app-component disabled></app-component>
+                        <app-component [disabled]="true"></app-component>
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Output signals
+
+                        ```typescript
+                        @Component({...})
+                        class BookComponent {
+                            deleteBook = output<Book>()
+
+                            onDelete() {
+                                this.deleteBook.emit(...);
+                            }
+                        }
+                        ```
+
+                        ```
+                        <book (deleteBook)="deleteBookEvent($event)" />
+                        ```
+
+                        Identique en tout point à `@Output()`, uniquement "utile" pour avoir une manière identique 
+                        de définir les inputs et ouptus d'un composant.
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Model signals
+
+                        ```typescript                 
+                        @Component({
+                            selector: 'custom-checkbox',
+                            template: '<div (click)="toggle()"> ... </div>',
+                        })
+                        export class CustomCheckbox {
+                            checked = model(false);
+                            toggle() {
+                                this.checked.set(!this.checked());
+                            }
+                        }
+                        ```
+
+                        ```
+                        <custom-checkbox [(checked)]="isAdmin" />
+                        <custom-checkbox (checkedChange)="handler()" />
+                        ```
+
+                        Les `ModelSignal` peuvent être obligatoire (`model.required()`)
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Effect et Computed sont readonly
+
+                        ```typescript
+                        counter = signal(0);
+
+                        constructor() {
+                          effect(() => {
+                            this.counter.set(1); // Error NG0600
+                          });  
+                        }
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Dépendences dynamiques
+
+                        ```typescript []
+                        const showCount = signal(false);
+                        const count = signal(0);
+                        const display = computed(() => {
+                          if (showCount()) {
+                            return `Count: ${count()}.`;
+                          } else {
+                            return 'Rien à signaler';
+                          }
+                        });
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Aller plus loin
+
+                        * https://angular.dev/guide/signals#advanced-topics
+                        * https://angular.dev/guide/signals/queries
+                        * https://blog.angular-university.io/angular-signal-components/
+                        * https://www.angulararchitects.io/en/blog/angular-signals-your-architecture-5-options/
+                    </textarea>
+                </section>
+            </section>
+
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # Standalone Components
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ```typescript
+                        @Component({
+                            standalone: true,
+                            selector: 'profile-photo',
+                        })
+                        export class ProfilePhoto { }
+                        
+                        @Component({
+                            standalone: true,
+                            imports: [ProfilePhoto],
+                            template: `<profile-photo />`
+                        })
+                        export class UserProfile { }
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        * Meilleur localité des imports
+                        * Meilleur "tree shaking"
+                        * Compilation à chaud plus rapide
+                        * Bon support des IDE (vscode, intellij)
+                        * Rétrocompatible à 100%
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Migration
+
+                        * `ng g @angular/core:standalone` "Convert all components, directives and pipes to standalone"
+                        * `ng g @angular/core:standalone` "Remove unnecessary NgModule classes"
+                        * `ng g @angular/core:standalone` "Bootstrap the project using standalone APIs"
+
+                        *Ne faire aucune supression de module manuellement avant !*
+
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Doc
+
+                        https://angular.dev/reference/migrations/standalone
+                    </textarea>
+                </section>
+            </section>
+
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # Built-in Control Flow
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## `if` `else`
+
+                        ```html
+                        @if (a > b) {
+                            {{a}} is greater than {{b}}
+                        } @else if (b > a) {
+                            {{a}} is less than {{b}}
+                        } @else {
+                            {{a}} is equal to {{b}}
+                        }
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## `for`
+
+                        ```html
+                        <ul>
+                            @for (item of items; track item.id) {
+                                <li>{{ item.name }}</li>
+                            } @empty {
+                                <li>There are no items.</li>
+                            }
+                        </ul>
+                        ```
+
+                        Attention, `track` devient obligatoire.
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## `switch`
+
+                        ```html
+                        @switch (condition) {
+                            @case (caseA) {
+                              Case A.
+                            }
+                            @case (caseB) {
+                              Case B.
+                            }
+                            @default {
+                              Default case.
+                            }
+                        }
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Migration
+
+                        `ng generate @angular/core:control-flow`
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Doc
+
+                        https://angular.dev/guide/templates/control-flow
+                    </textarea>
+                </section>
+            </section>
+
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # Structure des fichiers
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        `ng new my-project`
+
+                        ```
+                        .
+                        ├── src/
+                        │   ├── app/
+                        │   │   ├── app.component.ts
+                        │   │   ├── app.config.ts
+                        │   │   └── app.routes.ts
+                        │   ├── main.ts
+                        │   └── index.html
+                        ├── angular.json
+                        ├── package.json
+                        └── tsconfig.json
+                        ```
+
+                        https://angular.dev/reference/configs/file-structure
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## src/main.ts
+
+                        ```typescript
+                        import { bootstrapApplication } from '@angular/platform-browser';
+
+                        import { appConfig } from './app/app.config';
+                        import { AppComponent } from './app/app.component';
+
+                        bootstrapApplication(AppComponent, appConfig)
+                            .catch((err) => console.error(err));
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## src/app/app.config.ts
+
+                        ```typescript
+                        [...]
+                        import { routes } from './app.routes';
+                        
+                        export const appConfig: ApplicationConfig = {
+                            providers: [
+                                provideHttpClient(withInterceptorsFromDi()),
+                                provideRouter(routes),
+                                {
+                                    provide: HTTP_INTERCEPTORS,
+                                    useClass: TokenInterceptor,
+                                    multi: true
+                                }
+                            ]
+                        };
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## src/app/app.routes.ts
+
+                        ```typescript
+                        import { Routes } from '@angular/router';
+
+                        import { HomeComponent } from './app/home/home.component';
+
+                        export const routes: Routes = [
+                            { path: '', pathMatch: 'full', children: [] },
+                            { path: 'home', component: HomeComponent },
+                            { path: '**', component: PageNotFoundComponent }
+                        ];                        
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## src/app/app.component.ts
+
+                        ```typescript
+                        import { Component } from '@angular/core';
+                        import { RouterOutlet } from '@angular/router';
+                        
+                        @Component({
+                          selector: 'app-root',
+                          standalone: true,
+                          imports: [RouterOutlet],
+                          template: '<router-outlet />'
+                        })
+                        export class AppComponent { }
+                        ```
+                    </textarea>
+                </section>
+            </section>
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # What Else ?
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## esbuild / Vite
+
+                        https://angular.dev/tools/cli/build
+
+                        https://angular.dev/tools/cli/build-system-migration#automated-migration-recommended
+
+                        https://angular.dev/tools/cli/build-system-migration#vite-as-a-development-server
+
+                        Possiblement des soucis avec `proxy.conf.json` :(
+
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## `inject(...)`
+
+                        ```typescript [1-4|6-8]
+                        export class MonComposant {
+                            http = inject(HttpClient);
+                            componentService = inject(ComponentService)
+                        }
+
+                        export class MonComposantEnfant extends MonComposant {
+                            // pas besoin de constructeur pour les dépendances
+                        }
+                        ```
+
+                        Similaire à `@AutoWired` ou `@Inject` en Java.
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Deferrable views
+
+                        ```typescript
+                        @defer (when isAvailable()) {
+                            <slow-component />
+                        } @placeholder {
+                            <span>Placeholder</span>
+                        } @error {
+                            <span>Error</span>
+                        } @loading(minimum 1s) {
+                            <span>Chargement...</span>
+                        }
+                        ```
+
+                        https://angular.dev/guide/defer#defer
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Server Side Rendering
+
+                        https://angular.dev/guide/ssr
+
+                        https://angular.dev/guide/prerendering
+                    </textarea>
+                </section>
+            </section>
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # Angular 18, 19, ...
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Experience Developper (Angular 18)
+
+                        * [Extension Chrome](https://chromewebstore.google.com/detail/angular-devtools/ienfalfjdbdpebioblfackkekamfmbnh)
+                        * Amélioration temps de build
+                        * Nouvelle version de typescript
+                        * i18n (format des nombres et dates)
+                        * Nouvelle documentation
+                        * Debug des signals dans l'extension (Anguler 19)
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Zoneless [experimental] (Angular 18)
+
+                        Supression de Zone.js pour une grande amélioration des performances liés
+                        à la mise à jour des pages.
+
+                        A priori très peu de changement à faire si on utilise `OnPush` (et les sigmals !) :)
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Variable dans les templates (Angular 19)
+
+                        ```
+                        @let user = user$ | async;
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Tests unitaires (Angular 19)
+
+                        Modernisation de l'écriture et du lancement des tests unitaires.
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Hot Module Reload (Angular 19)
+
+                        Possibilité de charger uniquement les CSS et / ou les templates sans rechargement
+                        des composants JS.
+
+                        Rechargement du composant modifié uniquement et pas de l'ensemble de la page.
+                    </textarea>
+                </section>
+            </section>
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # RXJS
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Eviter les `subscribe` !
+
+
+                        ### pipe `async`
+                        ```typescript
+                        public data$: Observable<Model>;
+                        ```
+                        ```typescript
+                        this.data$ = this.service.fetch();
+                        ```
+                        ```
+                        {{ data$ | async }}
+                        ```
+
+                        ### signals
+
+                        ```typescript
+                        public data: Signal<Model>;
+                        ```
+                        ```typescript
+                        this.data = toSignal(this.service.fetch();
+                        ```
+                        ```
+                        {{ data() }}
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Unsubscribe !
+
+                        ```typescript [1-3|5-7|9-11]
+                        this.service.fetch()
+                            .pipe(first())
+                            .subscribe(result => this.data = result)
+
+                        this.service.fetch()
+                            .pipe(takeUntil(this.destroyed$))
+                            .subscribe(result => this.data = result)
+
+                        this.service.fetch()
+                            .pipe(takeUntilDestroyed())
+                            .subscribe(result => this.data = result)
+                        ```
+
+                        [`takeUntilDestroyed`](https://v17.angular.io/api/core/rxjs-interop/takeUntilDestroyed) est dans `@angular/core/rxjs-interop`
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## switchMap
+
+                        Eviter les calls HTTP dans un `subscribe`
+
+                        ```
+                        this.service.fetch().subscribe(result => {
+                            this.autreService.fetch(result.value)
+                                .subscribe(result => this.data = result)
+                        });
+                        ```
+
+                        ```
+                        this.service.fetch()
+                            .pipe(switchMap(result => this.autreService.fetch(result.value)))
+                            .subscribe(result => this.data = result)
+                        ```
+
+                        (mais évitez les `subscribe` quand même !)
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Différents opérateurs
+
+                        * [map](https://rxjs.dev/api/index/function/map)
+                        * [groupBy](https://rxjs.dev/api/index/function/groupBy)
+                        * [filter](https://rxjs.dev/api/index/function/filter)                        
+                        * [tap](https://rxjs.dev/api/index/function/tap)
+                        * [combineLatest](https://rxjs.dev/api/index/function/combineLatest)
+                        * [zip](https://rxjs.dev/api/index/function/zip)
+
+                        [Operator decision tree](https://rxjs.dev/operator-decision-tree)
+                    </textarea>
+                </section>
+            </section>
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # NGXS / State Management
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Glossaire
+
+                        * Redux : Pattern de State Management
+                        * NGXS : Librairie typescript implémentant Redux
+                        * Angular-RU/NGXS : Pluging NGXS pour la gestion d'entités
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ### NGXS
+
+                        * State : Conteneur de données 
+                        * Store : Ensemble de State
+                        * Action : Modification d'un State
+                        * Select : Partie d'un State
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ### Angular-RU/NGXS
+
+                        * Repository / StateRepository: Conteneur de données de type entités
+                        * DataAction : Méthode sur un Repository pour réalisé une Action
+                        * Computed : Méthode sur un Repository pour faire un Select
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ### @cci/store
+
+                        * PaginatedRepository : Données paginées
+                        * PaginatedRepositoryService : Service HTTP pour données paginées
+                        * CommonRepository : Données non paginées
+                        * CommonRepositoryService : Service HTTP pour données non paginées
+                        * ServiceStrategy : Interface entre Repository et Service
+
+                        https://git.vs.ch/cci/packages/-/issues/193
+                        </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Méthodes
+
+                        * fetch : récupère les données
+                        * insert : créé une nouvelle instance
+                        * update : mets à jour une instance
+                        * refresh : récupère une instance via son id
+                        * delete : supprime une instance
+
+                        Attention, retourne des `Observable` !
+
+                        * selectAll : retourne les données "locale"
+                        * selectOne : retourne une instance "locale"
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Source de vérité
+
+                        Toutes modifications (ou récupération) de données doit se faire via le StateRepository. ie, pas d'utilisation en direct du `Service`.
+
+                        Ne pas non plus utilisé le Repository comme simple "passe-plat".
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## signals ?
+
+                        https://github.com/ngxs/store/discussions/1977
+
+                        https://git.vs.ch/cci/packages/-/issues/192
+                    </textarea>
+                </section>
+            </section>
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # @cci/auth
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Autre token
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## UserFactory
+                    </textarea>
+                </section>
+            </section>
+
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        # CSS
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                    </textarea>
+                </section>
+            </section>
+        </div>
+    </div>
+
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script>
+        // Also available as an ES module, see:
+        // https://revealjs.com/initialization/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [
+                RevealZoom,
+                RevealNotes,
+                RevealSearch,
+                RevealMarkdown,
+                RevealHighlight,
+            ],
+        });
+    </script>
+</body>
+
+</html>
