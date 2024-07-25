@@ -479,6 +479,29 @@
 
                 <section data-markdown>
                     <textarea data-template>
+                        ## `withComponentInputBinding`
+
+                        ```typescript
+                        provideRouter(routes,  withComponentInputBinding())
+                        ```
+
+                        ```typescript
+                        const routes: Routes = [
+                            { path: "edit/:id", component: EditComponent },
+                        ];
+                        ```
+
+                        ```typescript
+                        export class EditComponent {
+                            query = input<string>(); // query params
+                            id = input<string>(); // path params
+                        }
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
                         ## `inject(...)`
 
                         ```typescript [1-4|6-8]
@@ -786,12 +809,54 @@
                 <section data-markdown>
                     <textarea data-template>
                         ## Autre token
+
+                        https://git.vs.ch/cci/packages/-/issues/201
                     </textarea>
                 </section>
 
                 <section data-markdown>
                     <textarea data-template>
                         ## UserFactory
+
+                        ```typescript
+                        export class MyUserProfileFactory extends KeycloakUserProfileFactory {
+                            const http = inject(HttpClient);
+
+                            public fromKeycloak(p: KeycloakProfile, s: KeycloakService): Observable<UserProfile> {
+                              return this.http.get('http://my.url.com/identity')
+                                .pipe(
+                                    map(d => UserProfile.createIncomplete({ ...p, ...d }))
+                                );
+                            }
+                          
+                            public create(u: PartialBaseModelValues<UserProfile>): UserProfile {
+                              return UserProfile.createIncomplete(u);
+                            }
+                          }
+                        ```
+
+                        https://git.vs.ch/faune/chasse/echassemobile-ui/-/blob/main/src/app/core/service/user-profile.factory.ts
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## UserFactory #2
+
+                        ```
+                        {
+                            provide: USER_PROFILE_FACTORY_TOKEN,
+                            useFactory: () => new MyUserProfileFactory()
+                        },
+
+                        ```
+
+                        ```typescript
+                        export interface UserProfileFactory<P extends UserProfile = UserProfile> {
+                            fromKeycloak(p: KeycloakProfile, s: KeycloakService): Observable<P>;
+                            create(u: PartialBaseModelValues<P>): P;
+                        }
+                        ```
                     </textarea>
                 </section>
             </section>
@@ -805,11 +870,49 @@
 
                 <section data-markdown>
                     <textarea data-template>
+                        ## Bonnes pratiques
+
+                        * Ecrire le moins de CSS possible
+                        * Eviter de mettre +++ classes
+                        * Utiliser les grids
+                        * Minimiser les padding et margin
                     </textarea>
                 </section>
 
                 <section data-markdown>
                     <textarea data-template>
+                        ## CSS Layer
+
+                        https://primeng.org/guides/csslayer
+
+                        https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## [@cci/components](https://git.vs.ch/cci/packages/-/tree/master/projects/cci-components/assets/scss)
+
+                        * `text-color-(success|warning|error|...)`
+                        * `bg-(muted-)?-(sucess|warning|error|...)`
+
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## [Primeng](https://primeng.org/)
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        ## [PrimeFlex](https://primeflex.org/installation)
+
+                        * [Grid](https://primeflex.org/gridsystem)
+                        * [Padding](https://primeflex.org/padding) / [Margin](https://primeflex.org/margin)
+                        * Font [Size](https://primeflex.org/fontsize), [Weight](https://primeflex.org/fontweight), [Align](https://primeflex.org/textalign)
+                        * [Form layout](https://primeflex.org/formlayout) (pas de classes sur les inputs!)
                     </textarea>
                 </section>
             </section>
