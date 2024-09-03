@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Formly</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../../dist/reveal.css" />
+    <link rel="stylesheet" href="../../dist/theme/dracula.css" id="theme" />
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/monokai.css" />
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section data-markdown>
+                <textarea data-template>
+                    # Génération de prestations
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Avantages
+
+                    * Agnostique des technologies <small>(React / Angular / Vue.js)</small>
+                    * Homogénéité entre prestations
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Solution Softcom
+
+                    ### --
+                    
+                    * Un container / application par prestation
+                    * Uniquement pour les formulaires
+                    * Nécessite une équipe de développeur
+
+                    ### ++
+
+                    * Flexibilité
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Solution SCI
+
+                    ### --
+                    
+                    * Uniquement les champs disponibles*
+
+                    ### ++
+
+                    * Une application globale
+                    * Une description, plusieurs rendus
+                    * Peu de connaissance technique nécessaire
+                    * Facilité de modifications
+
+                    <small>*Sans développement spécifique</small>
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    ## Défis
+
+                    * Aucune connaissance de eGovPortal
+                    * Conflits d'intérêts
+                    * Disponibilités des ressources
+                </textarea>
+            </section>
+
+            <section data-markdown>
+                <textarea data-template>
+                    # Démo
+                </textarea>
+            </section>
+        </div>
+    </div>
+
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script>
+        // Also available as an ES module, see:
+        // https://revealjs.com/initialization/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [
+                RevealZoom,
+                RevealNotes,
+                RevealSearch,
+                RevealMarkdown,
+                RevealHighlight,
+            ],
+        });
+    </script>
+</body>
+
+</html>
