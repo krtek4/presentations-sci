@@ -1,49 +1,245 @@
 <!doctype html>
 <html lang="fr">
-	<head>
-		<meta charset="utf-8">
 
-		<title>Angular 17</title>
+<head>
+	<meta charset="utf-8">
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<title>GIT</title>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-		<link rel="stylesheet" href="../../dist/reveal.css">
-		<link rel="stylesheet" href="../../dist/theme/dracula.css" id="theme">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="../../plugin/highlight/monokai.css">
-	</head>
+	<link rel="stylesheet" href="../../dist/reveal.css">
+	<link rel="stylesheet" href="../../dist/theme/dracula.css" id="theme">
 
-	<body>
-		<div class="reveal">
-			<div class="slides">
-            </div>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../../plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							# Module 1 : Bases
+
+							1/2 journée
+
+							Poser les bases de git
+						</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Concepts
+
+							* Repository
+							* Working directory
+							* Staging area
+							* Commit
+							* Branche
+							* Git vs Gitlab vs Github
+						</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Collaboration
+
+							* Merge
+							* Conflits
+							* Blame / Annotate
+							* Message de commits
+						</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Sécurité
+
+							* https vs ssh
+							* clefs ssh
+							* token
+						</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Utilisation
+
+							* CLI
+							* IntelliJ
+							* VS Code
+							* Logiciel tiers
+						</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							# Module 2 : Gitlab
+
+							2 heures
+
+							Utilisation du Gitlab de l'Etat du Valais.
+						</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Merge request
+
+							Présentation rapide du concept de Merge Request (Pull request chez Github).
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Code review
+
+							Faire de la Code Review avec Gitlab.
+						</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Pipeline
+
+							Les pipelines Gitlab avec un accent particulier autour de leur mise en place à L'Etat.
+						</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							# Module 3 : Git pour le dev
+
+							2 heures
+
+							Module spécifique pour les développeurs
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Branching strategies
+
+							* Trunk Based Development
+							* Feature Branching (Github Flow)
+							* GitFlow
+							* Gitlab Flow
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## SCI flow ?
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Unit testing
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							# Module 4 : Git avancé
+
+							Probablement plus logique de faire chaque partie séparement et pas tout ensemble en fonction du public.							
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Recherche de bugs
+
+							Utilisation de git bissect pour trouver le premier commit contenant un bug
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Hooks
+
+							Ajout de hook pour garantir la qualité du code ou d'autres contraintes.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Autres type de fichiers
+
+							* fichiers binaires
+							* gros fichiers
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Add patch
+
+							Comment ajouter seulement une partie des changements en ligne de commandes
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Alias
+
+							Ajouter des alias pour des commandes souvent utilisées
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Rebase
+
+							Utilise de git rebase pour modifier l'historique
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Reflog
+
+							Utilise de git reflog pour retrouver des changements
+					</textarea>
+				</section>
+			</section>
 		</div>
+	</div>
 
-		<script src="../../dist/reveal.js"></script>
-		<script src="../../plugin/zoom/zoom.js"></script>
-		<script src="../../plugin/notes/notes.js"></script>
-		<script src="../../plugin/search/search.js"></script>
-		<script src="../../plugin/markdown/markdown.js"></script>
-		<script src="../../plugin/highlight/highlight.js"></script>
-		<script>
+	<script src="../../dist/reveal.js"></script>
+	<script src="../../plugin/zoom/zoom.js"></script>
+	<script src="../../plugin/notes/notes.js"></script>
+	<script src="../../plugin/search/search.js"></script>
+	<script src="../../plugin/markdown/markdown.js"></script>
+	<script src="../../plugin/highlight/highlight.js"></script>
+	<script>
 
-			// Also available as an ES module, see:
-			// https://revealjs.com/initialization/
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				center: true,
-				hash: true,
+		// Also available as an ES module, see:
+		// https://revealjs.com/initialization/
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			center: true,
+			hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
-			});
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+		});
 
-		</script>
+	</script>
 
-	</body>
+</body>
+
 </html>
