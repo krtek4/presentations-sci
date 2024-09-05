@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Git Basics</title>
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../../../dist/reveal.css">
+	<link rel="stylesheet" href="../../../dist/theme/dracula.css" id="theme">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="../../../plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Git
+
+						Git est un logiciel de gestion de versions décentralisé. 
+						
+						C'est un logiciel libre (GPLv2), créé en 2005 par Linus Torvalds, pour le noyau Linux.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Gestion de versions
+
+						Gérer l'ensemble des versions d'un ou plusieurs fichiers et les modifications concurrents sur ceux-ci.
+
+						* Concurent Version System (CVS)
+						* Subversion (SVN)
+						* Visual SourceSafe (VSS)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Décentralisé
+
+						Multiple dépots de code (Github, Gitlab hum hum). Notion de dépot (repository) local.
+
+						* Mercurial
+						* BitKeeper
+						* Perforce
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Termes et notions communes
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### `Repository`
+
+						Dépot contenant le code.
+
+						### `Clone`
+
+						Créer une copie locale d'un repository.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### Change | `Diff`
+
+						Changement apporté à un fichier.
+
+						### Commit (nom) | `Changeset`
+
+						Liste de change appliqué de manière atomique.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### Version | Revision
+
+						Etat complet du repository pour un commit donné.
+
+						### `Blame` | Annotate
+
+						Commit et auteur de la dernière modification d'une ligne donné.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### `Branch` | Fork (!)
+
+						Embranchement dans l'arbre des commits.
+
+						### Trunk | Master | Mainline | Main
+
+						Branche principale.
+
+						### `Tag` | Label
+
+						Pointeur sur un commit particulier.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### `Merge`
+
+						Réconcilier des changements entre 2 versions.
+
+						### `Conflict`
+
+						Changement réalisé sur la même partie de fichier par deux personnes différentes.
+
+						### Resolve
+
+						Action du développeur pour résoudre un conflit.
+					</textarea>
+				</section>
+
+				<section>
+					<img
+						src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Revision_controlled_project_visualization-2010-24-02.svg/220px-Revision_controlled_project_visualization-2010-24-02.svg.png">
+				</section>
+
+
+				<section data-markdown>
+					<textarea data-template>
+						### `Working Copy`
+
+						Dossier de travail local.
+
+						### Staging | `Index`
+
+						Etape intermédiaire avant un commit.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### `Commit` (action)
+
+						Envoyer un commit vers un repository.
+
+						### `Checkout` | Update (!)
+
+						Mettre à jour sa Working Copy.
+
+						### `Push` | `Fetch` | `Pull` (!)
+
+						Synchroniser 2 repository.
+
+					</textarea>
+				</section>
+
+				<section>
+					<img src="https://k21academy.com/wp-content/uploads/2020/07/dvcs.png">
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### Pull / Merge Request
+
+						Fonctionnalité spécifique de Github / Gitlab pour mettre à jour une branche depuis une autre branche.
+
+						### Fork (Github)
+
+						Clone d'un repository dans un autre namespace
+					</textarea>
+				</section>
+			</section>
+		</div>
+	</div>
+
+	<script src="../../../dist/reveal.js"></script>
+	<script src="../../../plugin/zoom/zoom.js"></script>
+	<script src="../../../plugin/notes/notes.js"></script>
+	<script src="../../../plugin/search/search.js"></script>
+	<script src="../../../plugin/markdown/markdown.js"></script>
+	<script src="../../../plugin/highlight/highlight.js"></script>
+	<script>
+
+		// Also available as an ES module, see:
+		// https://revealjs.com/initialization/
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			center: true,
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+		});
+
+	</script>
+
+</body>
+
+</html>

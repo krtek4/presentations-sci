@@ -11,11 +11,11 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" href="../../dist/reveal.css">
-	<link rel="stylesheet" href="../../dist/theme/dracula.css" id="theme">
+	<link rel="stylesheet" href="../../../dist/reveal.css">
+	<link rel="stylesheet" href="../../../dist/theme/dracula.css" id="theme">
 
 	<!-- Theme used for syntax highlighting of code -->
-	<link rel="stylesheet" href="../../plugin/highlight/monokai.css">
+	<link rel="stylesheet" href="../../../plugin/highlight/monokai.css">
 </head>
 
 <body>
@@ -41,6 +41,7 @@
 							* Staging area
 							* Commit
 							* Branche
+							* Tag
 							* Git vs Gitlab vs Github
 						</textarea>
 				</section>
@@ -185,6 +186,18 @@
 
 				<section data-markdown>
 					<textarea data-template>
+							## Sélection de revision
+
+							* HEAD@{2}
+							* HEAD^ | HEAD^^
+							* HEAD~ | HEAD~2
+							* sha1..sha1
+							* sha1...sha1
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 							## Autres commandes
 
 							* git add -p
@@ -203,11 +216,20 @@
 					</textarea>
 				</section>
 
+
+				<section data-markdown>
+					<textarea data-template>
+							## Submodule
+
+							Présentation de la notion de submodule et son utilisation.
+					</textarea>
+				</section>
+
 				<section data-markdown>
 					<textarea data-template>
 							## Reflog
 
-							Utilise de git reflog pour retrouver des changements
+							Utilisation de git reflog pour retrouver des changements.
 					</textarea>
 				</section>
 
@@ -222,12 +244,12 @@
 		</div>
 	</div>
 
-	<script src="../../dist/reveal.js"></script>
-	<script src="../../plugin/zoom/zoom.js"></script>
-	<script src="../../plugin/notes/notes.js"></script>
-	<script src="../../plugin/search/search.js"></script>
-	<script src="../../plugin/markdown/markdown.js"></script>
-	<script src="../../plugin/highlight/highlight.js"></script>
+	<script src="../../../dist/reveal.js"></script>
+	<script src="../../../plugin/zoom/zoom.js"></script>
+	<script src="../../../plugin/notes/notes.js"></script>
+	<script src="../../../plugin/search/search.js"></script>
+	<script src="../../../plugin/markdown/markdown.js"></script>
+	<script src="../../../plugin/highlight/highlight.js"></script>
 	<script>
 
 		// Also available as an ES module, see:
