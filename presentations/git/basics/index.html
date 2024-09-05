@@ -16,6 +16,16 @@
 
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="../../../plugin/highlight/monokai.css">
+
+	<style type="text/css">
+		.reveal ul {
+			display: block;
+		}
+
+		.reveal p {
+			text-align: left;
+		}
+	</style>
 </head>
 
 <body>
@@ -180,6 +190,182 @@
 						### Fork (Github)
 
 						Clone d'un repository dans un autre namespace
+
+						### Pipelines (Gitlab) | Actions (Github)
+
+						Permet de lancer des "scripts" sous certaines conditions
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Utiliser Git
+
+						* CLI
+						* IntelliJ
+						* VSCode
+						* [GitHub Desktop](https://github.com/apps/desktop)
+						* [SourceTree](https://www.sourcetreeapp.com/)
+
+						https://git-scm.com/download/gui/windows
+
+						
+						### https://git.vs.ch/formations/git/base/intellij.md
+						
+						### https://git.vs.ch/formations/git/base/vscode.md
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Authenfication
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Deux protocoles
+
+						* ssh://git@git.vs.ch:2222/repo.git
+						* https://git.vs.ch/repo.git
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## SSH
+
+						Méthode recommandée.
+
+						* `ssh-keygen -t ed25519 -C "\<username\>@admin.vs.ch"`
+						* Ouvrir `C:\Users\\<username\>/.ssh/id_ed25519.pub`
+						* https://git.vs.ch/-/user_settings/ssh_keys
+
+						Projet d'automatisation via le compte utilisateur, aussi pour les serveurs Linux.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## HTTPS
+
+						* `https://@git.vs.ch/repo.git`
+						* `https://\<username\>@git.vs.ch/repo.git`
+						* `https://\<username\>:\<password\>@git.vs.ch/repo.git` *
+						* `https://\<username\>:\<token\>@git.vs.ch/repo.git` *
+
+						[Stockage des credentials](https://git-scm.com/docs/gitcredentials)
+
+						<sup>\* Attention à l'historique des commandes !</sup>
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Git pour les hermites
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Créer son repository
+
+						* https://git.vs.ch/projects/new
+						* `git clone ssh://git@git.vs.ch:2222/repo.git`
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Envoyer des fichiers
+
+						* `git add src/fichier.txt`
+						* `git commit -m "message de commit"`
+
+						## Supprimer un fichier
+
+						* `git rm src/fichier.txt`
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Voir l'état de la working copy
+
+						* `git status`
+
+						## Voir les modifications
+
+						* `git diff`
+						* `git diff src/fichier.txt`
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Envoyez sur Gitlab
+
+						* `git push`
+
+						## Récupérer depuis Gitlab
+
+						* `git pull`
+
+						Ou alors mieux:
+
+						* `git fetch`
+						* `git merge --ff-only`
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Un peu de pratique
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Créer son repo
+
+						Créer votre repository en utilisant votre nom d'utilisateur comme nom.
+					
+						https://git.vs.ch/projects/new?namespace_id=2512#blank_project
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Prendre les fichiers et changer le remote
+
+						* `git clone ssh://git@git.vs.ch:2222/formations/git/base.git`
+						* `git remote set-url origin ssh://git@git.vs.ch:2222/formations/git/<username>.git`
+						* `git push --set-upstream origin --all`
+
+						https://www.jetbrains.com/help/idea/using-git-integration.html
+						https://code.visualstudio.com/docs/sourcecontrol/overview
+
+						IntelliJ: 
+						[Clone](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo)
+						[Remote](https://www.jetbrains.com/guide/java/tutorials/creating-a-project-from-github/adding-updating-remotes/)
+
+						VSCode:
+						[Clone](https://code.visualstudio.com/docs/sourcecontrol/intro-to-git#_clone-a-repository-locally)
+						[Remote](https://stackoverflow.com/questions/51979534/how-can-i-change-the-origin-remote-in-vscode#answer-72087930)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						https://git.vs.ch/formations/git/base/exercise1.md
 					</textarea>
 				</section>
 			</section>
@@ -201,6 +387,8 @@
 			progress: true,
 			center: true,
 			hash: true,
+			width: 1600,
+			height: 1080,
 
 			// Learn about plugins: https://revealjs.com/plugins/
 			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
