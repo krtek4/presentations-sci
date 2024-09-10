@@ -212,9 +212,11 @@
 						https://git-scm.com/download/gui/windows
 
 						
-						### https://git.vs.ch/formations/git/base/intellij.md
+						### https://git.vs.ch/formations/git/base/tutorial/cli.md
+
+						### https://git.vs.ch/formations/git/base/tutorial/intellij.md
 						
-						### https://git.vs.ch/formations/git/base/vscode.md
+						### https://git.vs.ch/formations/git/base/tutorial/vscode.md
 					</textarea>
 				</section>
 			</section>
@@ -349,23 +351,72 @@
 						* `git clone ssh://git@git.vs.ch:2222/formations/git/base.git`
 						* `git remote set-url origin ssh://git@git.vs.ch:2222/formations/git/<username>.git`
 						* `git push --set-upstream origin --all`
-
-						https://www.jetbrains.com/help/idea/using-git-integration.html
-						https://code.visualstudio.com/docs/sourcecontrol/overview
-
-						IntelliJ: 
-						[Clone](https://www.jetbrains.com/help/idea/set-up-a-git-repository.html#clone-repo)
-						[Remote](https://www.jetbrains.com/guide/java/tutorials/creating-a-project-from-github/adding-updating-remotes/)
-
-						VSCode:
-						[Clone](https://code.visualstudio.com/docs/sourcecontrol/intro-to-git#_clone-a-repository-locally)
-						[Remote](https://stackoverflow.com/questions/51979534/how-can-i-change-the-origin-remote-in-vscode#answer-72087930)
 					</textarea>
 				</section>
 
 				<section data-markdown>
 					<textarea data-template>
-						https://git.vs.ch/formations/git/base/exercise1.md
+						https://git.vs.ch/formations/git/base/exercises/exercise-1.md
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Git is better with friends
+					</textarea>
+				</section>
+
+				<section>
+					<h2>Merge</h2>
+
+					<img src="https://www.bogotobogo.com/cplusplus/images/Git/Fast_Forward_Merge/TypicalMerge.png">
+					<img src="https://www.bogotobogo.com/cplusplus/images/Git/Fast_Forward_Merge/FastForwardMerge.png">
+					<img src="https://www.bogotobogo.com/cplusplus/images/Git/Fast_Forward_Merge/FastForwardMergeWith_no_ff.png">
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Conflits
+
+						Lorsque deux personnes modifient le même fichier, il est possible que Git ne sache pas comment réaliser le merge.
+
+						Dans ce cas, il déclare les fichiers en conflits et ne fait pas le commit.
+
+						```
+
+						class HelloWorld {
+							public static void main(String[] args) {
+						<<<<<<< HEAD
+								System.out.println("Bonjour, Monde!"); 
+						=======
+								System.out.println("Hello everyone!"); 
+						>>>>>>> new-hello
+							}
+						}
+						```
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### Visual Studio Code
+						<img src="https://i.ibb.co/N15hBN9/vscode.png">
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### IntelliJ
+						
+						<img src="https://i.ibb.co/853YPBw/intellij.png">
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Messages de commits
 					</textarea>
 				</section>
 			</section>
