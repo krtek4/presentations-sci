@@ -71,6 +71,23 @@
 				<section data-markdown>
 					<textarea data-template>
 						# Termes et notions communes
+
+						On peut retrouver plusieurs analogies dans les nom de commandes Git.
+
+						### Arbre 
+						
+						* clone
+						* root
+						* trunk
+						* branch
+						* cherry-picking
+						
+						### Rivière 
+						
+						* fork
+						* merge
+						* downstream
+						* upstream
 					</textarea>
 				</section>
 
@@ -201,6 +218,24 @@
 			<section>
 				<section data-markdown>
 					<textarea data-template>
+						# Concepts avancés
+
+						Les concepts suivants (et d'autres) seront traités dans d'autres modules:
+
+						* Stash
+						* Cherry picking
+						* Bisect
+						* Revert
+						* Reset
+						* Rebase
+						* Reflog
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
 						# Utiliser Git
 
 						* CLI
@@ -257,12 +292,12 @@
 
 						* `https://@git.vs.ch/repo.git`
 						* `https://\<username\>@git.vs.ch/repo.git`
-						* `https://\<username\>:\<password\>@git.vs.ch/repo.git` *
-						* `https://\<username\>:\<token\>@git.vs.ch/repo.git` *
+						* `https://\<username\>:\<password\>@git.vs.ch/repo.git` (*)
+						* `https://\<username\>:\<token\>@git.vs.ch/repo.git` (*)
 
 						[Stockage des credentials](https://git-scm.com/docs/gitcredentials)
 
-						<sup>\* Attention à l'historique des commandes !</sup>
+						<sup>\*: Attention à l'historique des commandes !</sup>
 					</textarea>
 				</section>
 			</section>
@@ -323,6 +358,8 @@
 
 						* `git fetch`
 						* `git merge --ff-only`
+
+						Idéalement, il ne faut avoir **aucun changement local** (non commité) au moment de récupérer des commits depuis Gitlab.
 					</textarea>
 				</section>
 			</section>
@@ -331,32 +368,8 @@
 				<section data-markdown>
 					<textarea data-template>
 						# Un peu de pratique
-					</textarea>
-				</section>
 
-				<section data-markdown>
-					<textarea data-template>
-						## Créer son repo
-
-						Créer votre repository en utilisant votre nom d'utilisateur comme nom.
-					
-						https://git.vs.ch/projects/new?namespace_id=2512#blank_project
-					</textarea>
-				</section>
-
-				<section data-markdown>
-					<textarea data-template>
-						## Prendre les fichiers et changer le remote
-
-						* `git clone ssh://git@git.vs.ch:2222/formations/git/base.git`
-						* `git remote set-url origin ssh://git@git.vs.ch:2222/formations/git/<username>.git`
-						* `git push --set-upstream origin --all`
-					</textarea>
-				</section>
-
-				<section data-markdown>
-					<textarea data-template>
-						https://git.vs.ch/formations/git/base/exercises/exercise-1.md
+						## https://git.vs.ch/formations/git/base/-/blob/main/exercises/exercise-1.md
 					</textarea>
 				</section>
 			</section>
@@ -368,10 +381,130 @@
 					</textarea>
 				</section>
 
+				<section data-markdown>
+					<textarea data-template>
+						# Commits
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Contenu d'un commit
+
+						* Atomique
+						* Compilable
+						* Pas trop grand (ni trop petit)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Message de commits
+
+						Un bon message de commit décrit ce qui a été fait, mais surtout pourquoi cela à été fait de cette manière.
+
+						L'historique Git doit être vu comme un moyen d'aider à comprendre la raison d'un changement pour faciliter de futurs développements ou corrections de bugs.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### Pourquoi ?
+
+						* Pourquoi le changement était nécessaire ?
+						* Pourquoi l'avoir fais comme cela ?
+						* Ou trouver plus d'information sur ce changement ?
+
+						### Bonnes pratiques
+
+						* Précis et concis
+						* Préciser le type de commit (bugfix, refactoring, fonctionnalité, ...)
+						* Maximum 50 caractères pour le titre
+						* (Utiliser le titre et la description longue)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### Exemples
+
+						* `Add margin`
+						* `Add margin to avoid overlapping`
+						* `INC123456 - Add margin to avoid overlapping`
+
+						### A éviter
+
+						* `STRY12345 - Administration dashboard`
+						* `fix bug`
+						* `update packages and fix login`
+						* `wip`
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Conventional Commits
+
+						```txt
+						<type>[optional scope]: <description>
+
+						[optional body]
+
+						[optional footer(s)]
+						```
+
+						Lisible par l'homme et la machine, permet de générer automatiquement des changelog par exemple.
+						
+						```txt
+						fix(network): prevent racing of requests
+
+						Introduce a request id and a reference to latest request.
+						Remove timeouts which were used to mitigate the racing issue but are
+						obsolete now.
+
+						BREAKING CHANGE: the method setTimeout has been removed from the API
+
+						Reviewed-by: xyz
+						Refs: #123
+						```
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Commit hash - SHA1
+
+						Chaque commit à un identifiant unique.
+
+						Il s'agit du hash des modifications du commit, ses metadata (auteur, message) et le hash du commit précédant en utilisant la fonction de hashage SHA1.
+
+						Le moindre changement sur une de ses "valeurs" entrainera un changement du hash du commit (rebase, ammend, cherry-pick, ...).
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Merge
+
+						L'action d'inclure les changements d'une source vers une destination.
+	
+						La source et la destination peuvent être:
+	
+						* des branches
+						* des commits
+						* des tags
+					</textarea>
+				</section>
+
 				<section>
-					<h2>Merge</h2>
+					<h3>Merge simple</h3>
 
 					<img src="https://www.bogotobogo.com/cplusplus/images/Git/Fast_Forward_Merge/TypicalMerge.png">
+				</section>
+
+				<section>
+					<h3>Merge "Fast Forward"</h3>
+
 					<img src="https://www.bogotobogo.com/cplusplus/images/Git/Fast_Forward_Merge/FastForwardMerge.png">
 					<img src="https://www.bogotobogo.com/cplusplus/images/Git/Fast_Forward_Merge/FastForwardMergeWith_no_ff.png">
 				</section>
@@ -408,15 +541,77 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						### IntelliJ
-						
+						### IntelliJ		
 						<img src="https://i.ibb.co/853YPBw/intellij.png">
 					</textarea>
 				</section>
 
 				<section data-markdown>
 					<textarea data-template>
-						## Messages de commits
+						## Blame
+
+						`git blame` permet d'annoter un fichier avec des information sur chaque ligne concernant le dernier commit l'ayant modifier.
+
+						On peut ainsi savoir qui est l'auteur du changement et si le message de commit est bon, pourquoi il a été fait.
+
+						Présent de base dans Intellij, [Extension VS Code](https://marketplace.visualstudio.com/items?itemName=W77.git-blame-w77)
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Un peu de pratique
+
+						## https://git.vs.ch/formations/git/base/-/blob/main/exercises/exercise-2.md
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# `HEAD`, Branches et Tags
+
+						Les trois sont un **pointeurs** sur un commit.
+
+						`HEAD` pointe sur le dernier commit
+
+						Les tags sont un pointeur fix
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Detached HEAD
+
+						`You are not currently on a branch.`
+
+						### Sans avoir de commit
+						```
+						git stash
+						git checkout <some-branch>
+						git stash pop
+						```
+
+						### Avec des commits
+						```
+						git log -1 
+						git checkout <some-branch>
+						git merge <commit-hash>
+						```
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Quelques trucs en plus
+
+						* gitignore
+						* global config files
 					</textarea>
 				</section>
 			</section>
