@@ -240,18 +240,40 @@
 
 						* CLI
 						* IntelliJ
-						* VSCode
+						* VS Code
 						* [GitHub Desktop](https://github.com/apps/desktop)
 						* [SourceTree](https://www.sourcetreeapp.com/)
 
 						https://git-scm.com/download/gui/windows
+					</textarea>
+				</section>
 
-						
+				<section data-markdown>
+					<textarea data-template>
+						# Première utilisation
+
+						### https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
+
+						```
+						git config --global user.name "Gilles Crettenand"
+						git config --global user.email gilcrt@admin.vs.ch
+						```
+
+						```
+						git config --global core.editor vim
+						```
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						# Utiliser Git
+
 						### https://git.vs.ch/formations/git/base/tutorial/cli.md
 
 						### https://git.vs.ch/formations/git/base/tutorial/intellij.md
 						
-						### https://git.vs.ch/formations/git/base/tutorial/vscode.md
+						### https://git.vs.ch/formations/git/base/tutorial/VSCode.md
 					</textarea>
 				</section>
 			</section>
@@ -297,7 +319,7 @@
 
 						[Stockage des credentials](https://git-scm.com/docs/gitcredentials)
 
-						<sup>\*: Attention à l'historique des commandes !</sup>
+						<sup>\* Attention à l'historique des commandes !</sup>
 					</textarea>
 				</section>
 			</section>
@@ -478,7 +500,7 @@
 
 						Il s'agit du hash des modifications du commit, ses metadata (auteur, message) et le hash du commit précédant en utilisant la fonction de hashage SHA1.
 
-						Le moindre changement sur une de ses "valeurs" entrainera un changement du hash du commit (rebase, ammend, cherry-pick, ...).
+						Le moindre changement sur une de ses "valeurs" entrainera un changement du hash du commit (rebase, amend, cherry-pick, ...).
 					</textarea>
 				</section>
 
@@ -535,7 +557,7 @@
 				<section data-markdown>
 					<textarea data-template>
 						### Visual Studio Code
-						<img src="https://i.ibb.co/N15hBN9/vscode.png">
+						<img src="https://i.ibb.co/N15hBN9/VS Code.png">
 					</textarea>
 				</section>
 
@@ -574,11 +596,13 @@
 					<textarea data-template>
 						# `HEAD`, Branches et Tags
 
-						Les trois sont un **pointeurs** sur un commit.
+						Les trois sont un **pointeur** sur un commit.
 
-						`HEAD` pointe sur le dernier commit
+						`HEAD` pointe sur le commit actuel de la Working Copy.
 
-						Les tags sont un pointeur fix
+						Une branche est un pointeur sur le dernier commit d'une "branche" (...).
+
+						Les tags sont un pointeur fixe.
 					</textarea>
 				</section>
 
@@ -608,10 +632,36 @@
 			<section>
 				<section data-markdown>
 					<textarea data-template>
-						# Quelques trucs en plus
+						# Quelques petits trucs en plus
+					</textarea>
+				</section>
 
-						* gitignore
-						* global config files
+				<section data-markdown>
+					<textarea data-template>
+						## .gitignore
+
+						```
+						/node_modules
+						/target
+						/dist
+
+						.vscode/*
+						.idea/*
+
+						[...]
+						```
+
+						### https://git-scm.com/docs/gitignore
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Un peu de pratique
+
+						## https://git.vs.ch/formations/git/base/-/blob/main/exercises/exercise-3.md
 					</textarea>
 				</section>
 			</section>
