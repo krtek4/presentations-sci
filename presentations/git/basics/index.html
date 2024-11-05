@@ -49,8 +49,8 @@
 						Gérer l'ensemble des versions d'un ou plusieurs fichiers et les modifications concurrents sur ceux-ci.
 
 						* Concurent Version System (CVS)
-						* Subversion (SVN)
 						* Visual SourceSafe (VSS)
+						* Subversion (SVN)
 					</textarea>
 				</section>
 
@@ -60,9 +60,9 @@
 
 						Multiple dépots de code (Github, Gitlab hum hum). Notion de dépot (repository) local.
 
-						* Mercurial
-						* BitKeeper
 						* Perforce
+						* BitKeeper
+						* Mercurial
 					</textarea>
 				</section>
 			</section>
@@ -160,8 +160,48 @@
 				</section>
 
 				<section>
-					<img
-						src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Revision_controlled_project_visualization-2010-24-02.svg/220px-Revision_controlled_project_visualization-2010-24-02.svg.png">
+					<div class="mermaid">
+						<pre>
+							%%{init: { 'theme': 'base' , 'themeVariables': {
+								'commitLabelColor': '#ffffff',
+								'lineColor': '#ffffff',
+								'commitLabelBackground': 'transparent',
+								'commitLabelFontSize': '20px',
+								'tagLabelFontSize': '18px'
+						 	} } }%%
+							gitGraph:
+								commit id: "1"
+								commit id: "2"
+								branch branche
+								commit id: "3"
+								commit id: "4"
+								checkout main
+								commit id: "5"
+								checkout branche
+								commit id: "6"
+								checkout main
+								merge branche id: "7" tag: "tag_1"
+								branch branche_abandonnee
+								checkout main
+								commit id: "8"
+								branch branche_2
+								checkout branche_abandonnee
+								commit id: "9"
+								checkout branche_2
+								commit id: "10" tag: "tag_2"
+								branch branche_3
+								checkout branche_2
+								commit id: "11"
+								checkout main
+								merge branche_2 id: "12" tag: "tag_3"
+								commit id: "13"
+								checkout branche_3
+								commit id: "14"
+								commit id: "15"
+								checkout main
+								commit id: "16"
+						</pre>
+					</div>
 				</section>
 
 
@@ -189,7 +229,7 @@
 
 						### `Push` | `Fetch` | `Pull` (!)
 
-						Synchroniser 2 repository.
+						Synchroniser deux repository.
 
 					</textarea>
 				</section>
@@ -202,7 +242,7 @@
 					<textarea data-template>
 						### Pull / Merge Request
 
-						Fonctionnalité spécifique de Github / Gitlab pour mettre à jour une branche depuis une autre branche.
+						Fonctionnalité spécifique de Github / Gitlab pour mettre à jour une branche depuis une autre branche ou un autre repository
 
 						### Fork (Github)
 
@@ -210,7 +250,7 @@
 
 						### Pipelines (Gitlab) | Actions (Github)
 
-						Permet de lancer des "scripts" sous certaines conditions
+						Permet de lancer des "scripts" selon certaines conditions
 					</textarea>
 				</section>
 			</section>
@@ -250,6 +290,18 @@
 
 				<section data-markdown>
 					<textarea data-template>
+						# Utiliser Git
+
+						### https://git.vs.ch/formations/git/base/tutorial/cli.md
+
+						### https://git.vs.ch/formations/git/base/tutorial/intellij.md
+						
+						### https://git.vs.ch/formations/git/base/tutorial/VSCode.md
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 						# Première utilisation
 
 						### https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
@@ -262,18 +314,12 @@
 						```
 						git config --global core.editor vim
 						```
-					</textarea>
-				</section>
 
-				<section data-markdown>
-					<textarea data-template>
-						# Utiliser Git
+						### Vérifier la config
 
-						### https://git.vs.ch/formations/git/base/tutorial/cli.md
-
-						### https://git.vs.ch/formations/git/base/tutorial/intellij.md
-						
-						### https://git.vs.ch/formations/git/base/tutorial/VSCode.md
+						```
+						git config -l
+						```
 					</textarea>
 				</section>
 			</section>
@@ -300,9 +346,11 @@
 
 						Méthode recommandée.
 
-						* `ssh-keygen -t ed25519 -C "\<username\>@admin.vs.ch"`
-						* Ouvrir `C:\Users\\<username\>/.ssh/id_ed25519.pub`
+						* `ssh-keygen -t ed25519 -C "<username>@admin.vs.ch"`
+						* Ouvrir `C:\Users\<username>\.ssh\id_ed25519.pub`
 						* https://git.vs.ch/-/user_settings/ssh_keys
+
+						Une fois la clef créée, elle sera normalement utilisé automatiquement par le CLI et les IDE.
 
 						Projet d'automatisation via le compte utilisateur, aussi pour les serveurs Linux.
 					</textarea>
@@ -310,12 +358,25 @@
 
 				<section data-markdown>
 					<textarea data-template>
+						## SSH-agent
+
+						Un ssh-agent permet de "transférer" les clefs SSH local vers les serveurs distants pour une auehtntification transparente.
+
+						* [Putty (via Pageant)](https://www.digitalocean.com/community/tutorials/how-to-use-pageant-to-streamline-ssh-key-authentication-with-putty)
+						* [MobaXTerm](https://docs.gcc.rug.nl/hyperchicken/ssh-agent-forwarding-mobaxterm/)
+						* [Windows natif](https://learn.microsoft.com/fr-ch/windows-server/administration/openssh/openssh_keymanagement)
+						* [Remote Desktop Manager](https://docs.devolutions.net/rdm/commands/tools/key-agent-manager/)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 						## HTTPS
 
-						* `https://@git.vs.ch/repo.git`
-						* `https://\<username\>@git.vs.ch/repo.git`
-						* `https://\<username\>:\<password\>@git.vs.ch/repo.git` (*)
-						* `https://\<username\>:\<token\>@git.vs.ch/repo.git` (*)
+						* `https://git.vs.ch/repo.git`
+						* `https://<username>@git.vs.ch/repo.git`
+						* `https://<username>:<password>@git.vs.ch/repo.git` (*)
+						* `https://<username>:<token>@git.vs.ch/repo.git` (*)
 
 						[Stockage des credentials](https://git-scm.com/docs/gitcredentials)
 
@@ -342,14 +403,17 @@
 
 				<section data-markdown>
 					<textarea data-template>
-						## Envoyer des fichiers
+						## Ajouter des fichiers
 
 						* `git add src/fichier.txt`
-						* `git commit -m "message de commit"`
 
 						## Supprimer un fichier
 
 						* `git rm src/fichier.txt`
+						
+						## Obtenir de l'aid
+
+						* `git help <command>`
 					</textarea>
 				</section>
 
@@ -368,20 +432,18 @@
 
 				<section data-markdown>
 					<textarea data-template>
+						## Faire un Commit
+
+						* `git commit -m "message de commit"`
+
 						## Envoyez sur Gitlab
 
 						* `git push`
 
-						## Récupérer depuis Gitlab
+						## Consulter les commits
 
-						* `git pull`
-
-						Ou alors mieux:
-
-						* `git fetch`
-						* `git merge --ff-only`
-
-						Idéalement, il ne faut avoir **aucun changement local** (non commité) au moment de récupérer des commits depuis Gitlab.
+						* `git log`
+						* `git log src/fichier.txt`
 					</textarea>
 				</section>
 			</section>
@@ -533,6 +595,32 @@
 
 				<section data-markdown>
 					<textarea data-template>
+						## Récupérer depuis Gitlab
+
+						`git fetch` permet de récupèrer les changements depuis Gitlab sans mettre à jour votre Working Copy.
+
+						`git merge --ff  origin/\<branche\>` permet de mettre à jour votre working copy.
+
+						La configuration par défaut de git implique `--ff` et le merge de la branche courante si elle n'est pas passé en paramêtre, un simple `git merge` suffit donc en général.
+
+						Idéalement, il ne faut avoir **aucun changement local** (non commité) au moment de faire un merge.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Et `git pull` dans tout ça ?
+
+						Les actions réalisées dépendent de la configuration (`merge` vs `rebase`), pour garantir même comportement que décrit avant, il faut faire un `git pull --merge --ff`.
+
+						Les IDE implémentent généralement leur "propre version" au lieu d'utiliser la commande git.
+						
+						Les commandes "Git | Update" et "Git | pull" d'IntellJ font sensiblement la même chose mais en proposant des options différentes.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 						## Conflits
 
 						Lorsque deux personnes modifient le même fichier, il est possible que Git ne sache pas comment réaliser le merge.
@@ -605,9 +693,191 @@
 						Les tags sont un pointeur fixe.
 					</textarea>
 				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# `HEAD`
+
+						`HEAD` point tout simplement sur le commit actuellement représenté dans la working copy.
+
+						`HEAD` va bouger à chaque `commit`, `merge`, `checkout` et tout autre commande changement le contenu de la working copy.
+
+						En général `HEAD` point sur une "feuille" de l'arbre, mais il est possible de le faire pointer sur n'importe quel commit ("Detached HEAD state").
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Branches
+
+						Chaque commit dans git a une référence vers le SHA1 de son, ou ses, parent(s). L'arbre de commit visible dans Gitlab et votre IDE est généré en utilisant cette information.
+
+						Une "branche" dans le sens strict dans Git est un pointeur vers une des feuilles de cet arbre.
+
+						Le pointeur de branche "avance" automatiquement à chaque fois que vous faites un commit ou que vous vous synchronisez avec le remote.
+					</textarea>
+				</section>
 
 				<section data-markdown>
 					<textarea data-template>
+						## Créez une branche
+
+						* `git checkout -b <branche>`
+						
+						La commande `git branch <branche>` va uniquement créer la branche sans se "mettre" dessus.
+
+						## Poussez une branche
+
+						* `git push -u <branche>`
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Supprimez une branche
+						
+						* `git branch -d <branche>`
+
+						## Rennomez une branche
+
+						* `git branch -m <branche> <branche2>`
+
+						Attention, aucune de ces deux commandes ne renomme ou supprime la branche sur le repository distant ou chez vos collègues.
+
+						Il est possible de réaliser ces opérations en CLI (prochain module) ou de passer directement par gitlab (ne pas oublier le `fetch` après).
+					</textarea>
+				</section>
+
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						## Tags
+
+						Un tag référence un commit précis plutôt que la feuille au sommet d'une branche.
+
+						Un tag permet de marquer un commit important pour pouvoir le retrouver, par exemple une release, la version actuellement en production.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Créez un tag
+
+						* `git tag <tagname>`
+
+						## Supprimer un tag
+
+						* `git tag -d <tagname>`
+						* `git push origin :refs/tags/<tagname>`
+						* `git fetch --prune --prune-tags` (chez tous les collègues)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Déplacez un tag
+
+						* `git tag -f <tagname>`
+						* `git push origin :refs/tags/<ancien>`
+						* `git push origin <tagname>`
+						* `git fetch --prune --prune-tags` (chez tous les collègues)
+
+						Ou alors passer directement par gitlab (la dernière étape reste nécessaire chez les collègues)
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Renommez un tag
+
+						* `git tag <nouveau> <ancien>`
+						* `git tag -d <ancien>`
+						* `git push origin <nouveau> :refs/tags/<ancien>`
+						* `git fetch --prune --prune-tags` (chez tous les collègues)
+
+						Ou alors passer directement par gitlab (la dernière étape reste nécessaire chez les collègues)
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Un peu de pratique
+
+						## https://git.vs.ch/formations/git/base/-/blob/main/exercises/exercise-3.md
+					</textarea>
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Retour sur les merges
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### `git merge branch` vs `git merge origin\branch`		
+						
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						### Gitlab merge request	
+						
+					</textarea>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+						# Quelques petits trucs en plus
+					</textarea>
+					</section>
+
+					<section data-markdown>
+						<textarea data-template>
+						## `git show`
+
+						* `git show <ref>:<file>`
+						* `git show ma_branche:src/fichier.txt`
+						* `git show 2b6dc32f0fb79aae47d3166a8770dc384cacd0d6:src/fichier.txt`
+						* `git show 2b6dc32f0fb79aae47d3166a8770dc384cacd0d6`
+						* `git show my_branche`
+					</textarea>
+					</section>
+
+					<section data-markdown>
+						<textarea data-template>
+						## .gitignore
+
+						```
+						/node_modules
+						/target
+						/dist
+
+						.vscode/*
+						.idea/*
+
+						[...]
+						```
+
+						### https://git-scm.com/docs/gitignore
+					</textarea>
+					</section>
+
+					<section data-markdown>
+						<textarea data-template>
 						## Detached HEAD
 
 						`You are not currently on a branch.`
@@ -626,45 +896,8 @@
 						git merge <commit-hash>
 						```
 					</textarea>
+					</section>
 				</section>
-			</section>
-
-			<section>
-				<section data-markdown>
-					<textarea data-template>
-						# Quelques petits trucs en plus
-					</textarea>
-				</section>
-
-				<section data-markdown>
-					<textarea data-template>
-						## .gitignore
-
-						```
-						/node_modules
-						/target
-						/dist
-
-						.vscode/*
-						.idea/*
-
-						[...]
-						```
-
-						### https://git-scm.com/docs/gitignore
-					</textarea>
-				</section>
-			</section>
-
-			<section>
-				<section data-markdown>
-					<textarea data-template>
-						# Un peu de pratique
-
-						## https://git.vs.ch/formations/git/base/-/blob/main/exercises/exercise-3.md
-					</textarea>
-				</section>
-			</section>
 		</div>
 	</div>
 
@@ -674,6 +907,7 @@
 	<script src="../../../plugin/search/search.js"></script>
 	<script src="../../../plugin/markdown/markdown.js"></script>
 	<script src="../../../plugin/highlight/highlight.js"></script>
+	<script src="../../../node_modules/reveal.js-mermaid-plugin/plugin/mermaid/mermaid.js"></script>
 	<script>
 
 		// Also available as an ES module, see:
@@ -686,8 +920,10 @@
 			width: 1600,
 			height: 1080,
 
+			showNotes: true,
+
 			// Learn about plugins: https://revealjs.com/plugins/
-			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+			plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMermaid]
 		});
 
 	</script>
