@@ -599,7 +599,7 @@
 
 						`git fetch` permet de récupèrer les changements depuis Gitlab sans mettre à jour votre Working Copy.
 
-						`git merge --ff  origin/\<branche\>` permet de mettre à jour votre working copy.
+						`git merge --ff origin/\<branche\>` permet de mettre à jour votre working copy.
 
 						La configuration par défaut de git implique `--ff` et le merge de la branche courante si elle n'est pas passé en paramêtre, un simple `git merge` suffit donc en général.
 
@@ -730,6 +730,10 @@
 						
 						La commande `git branch <branche>` va uniquement créer la branche sans se "mettre" dessus.
 
+						## Allez sur une branche existante
+
+						* `git checkout <branche>`
+
 						## Poussez une branche
 
 						* `git push -u <branche>`
@@ -771,7 +775,17 @@
 
 						* `git tag <tagname>`
 
-						## Supprimer un tag
+						## Allez sur un tag
+
+						* `git checkout <tagname>`
+
+						Attention, vous vous retrouverez probablement en "Detached HEAD state" après cette opération.
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+							## Supprimer un tag
 
 						* `git tag -d <tagname>`
 						* `git push origin :refs/tags/<tagname>`
